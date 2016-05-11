@@ -28,10 +28,9 @@ RUN apt-get update \
 USER $JICOFO_USER
 WORKDIR $JICOFO_HOME
 
-RUN git clone https://github.com/jitsi/jicofo.git focus \
-    && cd focus
-RUN ant dist.lin64 \
-    && cd dist.lin64
+RUN git clone https://github.com/jitsi/jicofo.git focus
+RUN cd focus \
+    && ant dist.lin64
 
 ADD ./scripts $EJABBERD_HOME/scripts
 
