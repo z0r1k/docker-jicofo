@@ -29,9 +29,9 @@ USER $JICOFO_USER
 WORKDIR $JICOFO_HOME
 
 RUN git clone https://github.com/jitsi/jicofo.git focus \
-    cd focus
+    && cd focus
 RUN ant dist.lin64 \
-    cd dist.lin64
+    && cd dist.lin64
 
 ADD ./scripts $EJABBERD_HOME/scripts
 
