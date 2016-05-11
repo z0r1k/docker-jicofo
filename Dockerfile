@@ -21,7 +21,9 @@ RUN groupadd -r $JICOFO_USER \
        -g $JICOFO_USER \
        -d $JICOFO_HOME \
        $JICOFO_USER
-RUN apt-get update && apt-get -y install default-jdk ant
+RUN apt-get update \
+    && apt-get -y install git \
+    && apt-get -y install default-jdk ant
 
 USER $JICOFO_USER
 WORKDIR $JICOFO_HOME
