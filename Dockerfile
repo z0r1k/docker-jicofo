@@ -1,26 +1,26 @@
 FROM debian:jessie
 MAINTAINER Mykhailo Lieibenson <gramatron@gmail.com>
 
-ENV JICOFO_USER=focus \
-    JICOFO_HOME=/opt/jicofo \
-    HOME=$JICOFO_HOME \
-    PATH=$JICOFO_HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-    XMPP_DOMAIN="example.com" \
-    XMPP_SUBDOMAIN="focus" \
-    XMPP_HOST="localhost" \
-    XMPP_PORT="5347" \
-    FOCUS_SECRET = "-secret-" \
-    FOCUS_USER = "focus" \
-    FOCUS_USER_SECRET = "#secret#" \
-    FOCUS_USER_DOMAIN = "localhost"
+ENV JICOFO_USER=focus
+ENV JICOFO_HOME=/opt/jicofo
+ENV HOME=$JICOFO_HOME
+ENV PATH=$JICOFO_HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV XMPP_DOMAIN="example.com"
+ENV XMPP_SUBDOMAIN="focus"
+ENV XMPP_HOST="localhost"
+ENV XMPP_PORT="5347"
+ENV FOCUS_SECRET = "-secret-"
+ENV FOCUS_USER = "focus"
+ENV FOCUS_USER_SECRET = "#secret#"
+ENV FOCUS_USER_DOMAIN = "localhost"
+
+USER root
 
 RUN groupadd -r $JICOFO_USER \
     && useradd -r -m \
        -g $JICOFO_USER \
        -d $JICOFO_HOME \
        $JICOFO_USER
-
-USER root
 RUN apt-get install default-jdk ant
 
 USER $JICOFO_USER
