@@ -1,6 +1,7 @@
 FROM debian:jessie
 MAINTAINER Mykhailo Lieibenson <gramatron@gmail.com>
 
+ENV JICOFO_TAG=255
 ENV JICOFO_USER=focus
 ENV JICOFO_HOME=/opt/jicofo
 ENV HOME=$JICOFO_HOME
@@ -15,23 +16,24 @@ ENV FOCUS_USER_SECRET = "#secret#"
 ENV FOCUS_USER_DOMAIN = "localhost"
 
 USER root
+WORKDIR $JICOFO_HOME
 
 RUN groupadd -r $JICOFO_USER \
     && useradd -r -m \
        -g $JICOFO_USER \
        -d $JICOFO_HOME \
        $JICOFO_USER
+
 RUN apt-get update \
     && apt-get -y install git \
     && apt-get -y install default-jdk ant
 
-USER $JICOFO_USER
-WORKDIR $JICOFO_HOME
-
 RUN git clone https://github.com/jitsi/jicofo.git focus
 RUN cd focus \
+    && git checkout $JICOFO_TAG \
     && ant dist.lin64
 
-ADD ./scripts $EJABBERD_HOME/scripts
+USER $JICOFO_USER
 
+ADD ./scripts $EJABBERD_HOME/scripts
 CMD ["${EJABBERD_HOME}/scripts/run.sh"]
