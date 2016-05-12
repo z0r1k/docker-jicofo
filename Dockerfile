@@ -24,14 +24,19 @@ RUN groupadd -r $JICOFO_USER \
        -d $JICOFO_HOME \
        $JICOFO_USER
 
-RUN apt-get update \
+RUN apt-get -y update \
     && apt-get -y install git \
-    && apt-get -y install default-jdk ant
+    && apt-get -y install default-jdk maven
 
 RUN git clone https://github.com/jitsi/jicofo.git focus
+
 RUN cd focus \
     && git checkout $JICOFO_TAG \
-    && ant dist.lin64
+    && mvn -U clean package -DskipTests
+
+RUN cp -R focus/lib focus/target/ \
+    && focus/resources/install/linux-64/jicofo.sh focus/target/ \
+    && chmod +x focus/target/jicofo.sh
 
 USER $JICOFO_USER
 
