@@ -26,6 +26,11 @@ RUN groupadd -r $JICOFO_USER \
        $JICOFO_USER \
     && chown -R $JICOFO_USER:$JICOFO_USER $JICOFO_HOME
 
+ADD ./scripts $JICOFO_HOME/scripts
+
+RUN chmod 0755 $JICOFO_HOME/scripts/*.sh \
+    && chown $JICOFO_USER: $JICOFO_HOME/scripts/*.sh
+
 RUN apt-get -y update \
     && apt-get -y install git wget unzip \
     && apt-get -y install default-jdk ant maven
@@ -41,5 +46,4 @@ RUN cd focus \
     && ant -lib lib/maven-ant-tasks-2.1.3.jar dist.lin64 \
     && unzip dist/linux/jicofo-linux-x64-build.SVN.zip
 
-ADD ./scripts $JICOFO_HOME/scripts
 CMD ["scripts/run.sh"]
