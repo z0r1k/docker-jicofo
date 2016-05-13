@@ -6,14 +6,15 @@ ENV JICOFO_USER=focus
 ENV JICOFO_HOME=/jicofo
 ENV HOME=$JICOFO_HOME
 ENV PATH=$JICOFO_HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+ENV FOCUS_SECRET = "-secret-"
 ENV XMPP_DOMAIN="example.com"
-ENV XMPP_SUBDOMAIN="focus"
+ENV XMPP_SUBDOMAIN="jitsi-focus"
 ENV XMPP_HOST="localhost"
 ENV XMPP_PORT="5347"
-ENV FOCUS_SECRET = "-secret-"
 ENV FOCUS_USER = "focus"
 ENV FOCUS_USER_SECRET = "#secret#"
-ENV FOCUS_USER_DOMAIN = "localhost"
+ENV FOCUS_USER_DOMAIN = "example.com"
 
 USER root
 WORKDIR $JICOFO_HOME
