@@ -41,4 +41,4 @@ RUN cd focus \
 USER $JICOFO_USER
 
 ADD ./scripts $JICOFO_HOME/scripts
-CMD ["$JICOFO_HOME/scripts/run.sh"]
+CMD ["scripts/run.sh"]
