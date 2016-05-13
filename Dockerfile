@@ -3,7 +3,7 @@ MAINTAINER Mykhailo Lieibenson <gramatron@gmail.com>
 
 ENV JICOFO_TAG=255
 ENV JICOFO_USER=focus
-ENV JICOFO_HOME=/opt/jicofo
+ENV JICOFO_HOME=/home/jicofo
 ENV HOME=$JICOFO_HOME
 ENV PATH=$JICOFO_HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV XMPP_DOMAIN="example.com"
