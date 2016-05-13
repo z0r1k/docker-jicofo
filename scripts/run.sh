@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec ../focus/target/jicofo.sh \
+exec ../focus/jicofo-linux-x64-build.SVN/jicofo.sh \
     --domain=$XMPP_DOMAIN \
     --subdomain=$XMPP_SUBDOMAIN \
     --host=$XMPP_HOST \
