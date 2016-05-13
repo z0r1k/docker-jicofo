@@ -19,7 +19,6 @@ USER root
 WORKDIR $JICOFO_HOME
 
 RUN groupadd -r $JICOFO_USER \
-    && mkdir $JICOFO_HOME \
     && useradd -r -m \
        -g $JICOFO_USER \
        -d $JICOFO_HOME \
