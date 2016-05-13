@@ -3,7 +3,7 @@ MAINTAINER Mykhailo Lieibenson <gramatron@gmail.com>
 
 ENV JICOFO_TAG=255
 ENV JICOFO_USER=focus
-ENV JICOFO_HOME=/home/jicofo
+ENV JICOFO_HOME=/jicofo
 ENV HOME=$JICOFO_HOME
 ENV PATH=$JICOFO_HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV XMPP_DOMAIN="example.com"
@@ -19,15 +19,19 @@ USER root
 WORKDIR $JICOFO_HOME
 
 RUN groupadd -r $JICOFO_USER \
+    && mkdir $JICOFO_HOME \
     && useradd -r -m \
        -g $JICOFO_USER \
        -d $JICOFO_HOME \
-       $JICOFO_USER
+       -c "Jitsi Meet Conference Focus User" \
+       $JICOFO_USER \
+    && chown -R $JICOFO_USER:$JICOFO_USER $JICOFO_HOME
 
 RUN apt-get -y update \
-    && apt-get -y install git \
-    && apt-get -y install wget \
-    && apt-get -y install default-jdk ant maven unzip
+    && apt-get -y install git wget unzip \
+    && apt-get -y install default-jdk ant maven
+
+USER $JICOFO_USER
 
 RUN git clone https://github.com/jitsi/jicofo.git focus
 
@@ -37,8 +41,6 @@ RUN cd focus \
     && mvn dependency:resolve \
     && ant -lib lib/maven-ant-tasks-2.1.3.jar dist.lin64 \
     && unzip dist/linux/jicofo-linux-x64-build.SVN.zip
-
-USER $JICOFO_USER
 
 ADD ./scripts $JICOFO_HOME/scripts
 CMD ["scripts/run.sh"]
