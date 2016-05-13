@@ -29,8 +29,6 @@ RUN apt-get -y update \
     && apt-get -y install wget \
     && apt-get -y install default-jdk ant maven unzip
 
-USER $JICOFO_USER
-
 RUN git clone https://github.com/jitsi/jicofo.git focus
 
 RUN cd focus \
@@ -39,6 +37,8 @@ RUN cd focus \
     && mvn dependency:resolve \
     && ant -lib lib/maven-ant-tasks-2.1.3.jar dist.lin64 \
     && unzip dist/linux/jicofo-linux-x64-build.SVN.zip
+
+USER $JICOFO_USER
 
 ADD ./scripts $JICOFO_HOME/scripts
 CMD ["${JICOFO_HOME}/scripts/run.sh"]
