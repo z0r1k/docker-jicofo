@@ -47,4 +47,6 @@ RUN cd focus \
     && ant -lib lib/maven-ant-tasks-2.1.3.jar dist.lin64 \
     && unzip dist/linux/jicofo-linux-x64-build.SVN.zip
 
+EXPOSE $XMPP_PORT
+
 CMD ["scripts/run.sh"]
